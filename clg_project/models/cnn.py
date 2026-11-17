@@ -15,11 +15,11 @@ from utils.logger import logger
 
 
 def build_cnn_model(
-    max_words=20000,
-    max_len=300,
-    embedding_dim=64,
-    filters=32,
-    dropout=0.3,
+max_words=10000,
+max_len=300,
+embedding_dim=32,
+filters=16,
+dropout=0.3,
 ):
     model = Sequential([
         Input(shape=(max_len,)),
@@ -52,10 +52,10 @@ def train_cnn(
     X_train,
     y_train,
     X_test,
-    max_words=20000,
-    max_len=300,
-    max_epochs=3,
-    batch_size=80,
+max_words=10000,
+max_len=300,
+max_epochs=2,
+batch_size=16,
 ):
     logger.info("CNN preprocessing started.")
 
@@ -83,8 +83,8 @@ def train_cnn(
 
     # Fixed lightweight configuration; no search loop.
     cnn_config = {
-        "embedding_dim": 64,
-        "filters": 32,
+        "embedding_dim": 32,
+        "filters": 16,
         "dropout": 0.3,
         "epochs": max_epochs,
     }

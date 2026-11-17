@@ -6,6 +6,8 @@ from sklearn.calibration import CalibratedClassifierCV
 from sklearn.linear_model import LogisticRegression
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import gc
+
 
 from models.cnn import build_cnn_model
 from utils.logger import logger
@@ -24,9 +26,9 @@ def create_oof_predictions(
     nb_alpha,
     svm_c,
     cnn_config,
-    max_words=20000,
-    max_len=300,
-    batch_size=80,
+max_words=10000,
+max_len=300,
+batch_size=16,
 ):
     logger.info("OOF prediction generation started.")
 
@@ -127,7 +129,15 @@ def create_oof_predictions(
             verbose=0,
         ).ravel()
 
+
         logger.info(f"OOF fold {fold} completed.")
+
+        del cnn_model
+        del X_cnn_train, X_cnn_val
+        del tokenizer
+        del fold_text_train, fold_text_val
+
+        gc.collect()
 
     meta_train = np.column_stack([
         oof_nb,

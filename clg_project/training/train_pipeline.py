@@ -102,10 +102,10 @@ def train_pipeline(df):
         X_train,
         y_train,
         X_test,
-        max_words=20000,
+        max_words=10000,
         max_len=300,
-        max_epochs=3,
-        batch_size=80,
+        max_epochs=2,
+        batch_size=16,
     )
 
     logger.info("CNN training completed.")
@@ -118,9 +118,9 @@ def train_pipeline(df):
         nb_alpha=nb_model.alpha,
         svm_c=svm_c,
         cnn_config=cnn_config,
-        max_words=20000,
+        max_words=10000,
         max_len=300,
-        batch_size=80,
+        batch_size=16,
     )
 
     # Each column must stay in the same model order as meta_train.
